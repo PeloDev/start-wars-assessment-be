@@ -4,7 +4,7 @@ const baseURL = 'https://swapi.dev/api/';
 
 export const resolvers = {
     Query: {
-        getAllPeople: async (parent: any, args: any, context: any, info: any) => {
+        getAllPeople: async (parent: any, args: any, context: any, info: any) => { 
             let result = await axios.get(`${baseURL}people/?page=${args.page ?? 1}`);
             if (result.data) {
                 const { data } = result;
