@@ -20,12 +20,13 @@ export const typeDefs = gql`
   }
 
   type Person {
+    id: String!
     birth_year: String!
     eye_color: String!
     films: [String]!
     gender: String!
     height: String!
-    # homeworld: Planet!
+    homeworldOb: Planet
     homeworld: String!
     mass: String!
     name: String!
@@ -38,8 +39,15 @@ export const typeDefs = gql`
     vehicles: [String]!
   }
 
+  type People {
+    count: Int!
+    total: Int!
+    people: [Person]!
+  }
+
   type Query {
-    getAllPeople(page: Int): [Person]!
+    getAllPeople(page: Int): People!
+    getPersonById(id: String!) : Person
     searchPerson(name: String!): [Person]!
     fetchHomeworldDetails(url: String!): Planet
   }
