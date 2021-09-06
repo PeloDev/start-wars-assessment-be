@@ -19,6 +19,13 @@ export const typeDefs = gql`
     url: String!
   }
 
+  type Image {
+    url: String!
+    thumbnail: String!
+    snippet: String!
+    context: String!
+  }
+
   type Person {
     id: String!
     birth_year: String!
@@ -37,6 +44,7 @@ export const typeDefs = gql`
     url: String!
     starships: [String]!
     vehicles: [String]!
+    images: [Image] # from image-search-google
   }
 
   type People {

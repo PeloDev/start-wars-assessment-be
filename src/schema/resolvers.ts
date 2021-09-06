@@ -1,10 +1,11 @@
 import axios from "axios";
+import { getCharacterImages } from "../helpers";
 
 const baseURL = 'https://swapi.dev/api/';
 
 export const resolvers = {
     Query: {
-        getAllPeople: async (_parent: any, args: any, _context: any, _info: any) => { 
+        getAllPeople: async (_parent: any, args: any, _context: any, _info: any) => {
             let result = await axios.get(`${baseURL}people/?page=${args.page ?? 1}`);
             if (result.data) {
                 const { data } = result;
@@ -14,9 +15,9 @@ export const resolvers = {
                 for (let i = 0; i < results.length; i++) {
                     const currentPerson = results[i];
                     const personId = currentPerson.url.split('/')[currentPerson.url.split('/').length - 2]
-                    completeResults.push({...currentPerson, id:personId })
+                    completeResults.push({ ...currentPerson, id: personId })
                 }
-                
+
                 return {
                     count: completeResults.length,
                     total: count,
@@ -34,6 +35,7 @@ export const resolvers = {
                 completeResult.id = args.id;
                 let homeworldRes = await axios.get(data.homeworld);
                 completeResult.homeworldOb = homeworldRes.data;
+                data.images = await getCharacterImages(data.name);
                 return completeResult;
             }
             else
@@ -47,7 +49,7 @@ export const resolvers = {
                 for (let i = 0; i < data.results.length; i++) {
                     const currentPerson = data.results[i];
                     const personId = currentPerson.url.split('/')[currentPerson.url.split('/').length - 2]
-                    completeResults.push({...currentPerson, id:personId })
+                    completeResults.push({ ...currentPerson, id: personId })
                 }
                 return completeResults;
             }
