@@ -1,5 +1,5 @@
 import axios from "axios";
-import { getCharacterImages } from "../helpers";
+import { getCharacterImages, searchImagesByName } from "../helpers";
 
 const baseURL = 'https://swapi.dev/api/';
 
@@ -35,7 +35,8 @@ export const resolvers = {
                 completeResult.id = args.id;
                 let homeworldRes = await axios.get(data.homeworld);
                 completeResult.homeworldOb = homeworldRes.data;
-                data.images = await getCharacterImages(data.name);
+                data.image = await searchImagesByName(data.name);
+                // data.images = await getCharacterImages(data.name);
                 return completeResult;
             }
             else

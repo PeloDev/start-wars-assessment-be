@@ -5,6 +5,7 @@
   "dependencies": {
     "apollo-server-lambda": "^3.3.0",
     "axios": "^0.21.1",
+    "cloudinary": "^1.26.3",
     "cors": "^2.8.5",
     "express": "^4.17.1",
     "graphql": "^15.5.2",

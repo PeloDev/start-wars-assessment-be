@@ -45,6 +45,7 @@ export const typeDefs = gql`
     starships: [String]!
     vehicles: [String]!
     images: [Image] # from image-search-google
+    image: String # from cloudinary
   }
 
   type People {

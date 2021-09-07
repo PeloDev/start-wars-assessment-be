@@ -8,6 +8,7 @@ interface ICSEImage {
     context: string;
 }
 
+// Google Custom Search Engine API
 export const getCharacterImages = async (name: string) => {
     const client = new imageSearch('5280e298b73d7a0ae', 'AIzaSyAKyScVfoXSC-vkzKo_E5Kuigi6-1N_FXQ');
     const options = { page: 1 };
@@ -19,9 +20,25 @@ export const getCharacterImages = async (name: string) => {
 
     console.log(result);
     return [];
-    // client.search(name, options)
-    //     .then((images: ICSEImage[]) => {
-    //         console.log(images);
-    //     })
-    //     .catch((error: any) => console.log(error));
+}
+
+// Cloudinary
+const cloudinary = require('cloudinary').v2;
+
+cloudinary.config({
+    cloud_name: 'dhrbbwjkf',
+    api_key: '133572515934579',
+    api_secret: 'AuctutecS27x7f2C764eedst6BU',
+    secure: true
+})
+
+export const searchImagesByName = async (name: string) => {
+    const result = await cloudinary
+        .search
+        .expression(name)
+        .max_results(2)
+        .execute();//.then((result: any) => console.log(result));
+    if (result.secure_url)
+        return result.secure_url;
+    else return null;
 }
