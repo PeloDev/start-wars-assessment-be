@@ -17,6 +17,7 @@ export const typeDefs = gql`
     surface_water: String!
     terrain: String!
     url: String!
+    image: String
   }
 
   type Image {

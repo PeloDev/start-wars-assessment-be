@@ -33,12 +33,18 @@ cloudinary.config({
 })
 
 export const searchImagesByName = async (name: string) => {
+    let searchTerm = name.replace(" ", "-").toLowerCase();
+    console.log(searchTerm);
     const result = await cloudinary
         .search
-        .expression(name)
-        .max_results(2)
+        .expression(searchTerm)
+        .max_results(1)
         .execute();//.then((result: any) => console.log(result));
-    if (result.secure_url)
-        return result.secure_url;
+    if (result.resources) {
+        if (result.resources.secure_url)
+            return result.resources.secure_url;
+        if (result.resources[0])
+            return result.resources[0].secure_url;
+    }
     else return null;
 }
